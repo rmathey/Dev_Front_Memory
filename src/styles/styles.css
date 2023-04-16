@@ -1,0 +1,28 @@
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: rgb(50, 170, 185);
+  }
+  
+  nav li {
+    margin-right: 1rem;
+  }
+  
+  nav li:last-child {
+    margin-right: 0;
+  }
+  
+  nav li a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  
+  nav li a:hover {
+    background-color: white;
+    color: blue;
+  }
+  
