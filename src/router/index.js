@@ -7,16 +7,14 @@ const routes = [
     component: () => import("../pages/MainPage.vue")
   },
   {
-    path: "/page1",
-    component: () => import("../pages/MainPage.vue")
+    path: "/addTheme",
+    component: () => import("../pages/AddThemePage.vue")
   },
   {
-    path: "/page2",
-    component: () => import("../pages/MainPage.vue")
-  },
-  {
-    path: "/page3",
-    component: () => import("../pages/MainPage.vue")
+    path: '/theme/:nom',
+    name: 'theme-details',
+    component: () => import("../pages/ThemePage.vue"),
+    props: true
   }
 ]
 

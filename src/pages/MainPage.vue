@@ -1,17 +1,23 @@
 <template>
-  <h1>Hello world</h1>
-  <h1>Count: {{ store.count }}</h1>
-  <h1>name {{ name }}</h1>
-  <h1>doubleCount {{ doubleCount }}</h1>
-  <button @click="increment">Cliquez ici</button>
-  <button @click="decrement">Cliquez ici</button>
+  <h1>Memory</h1>
+  <h2>Liste des themes:</h2>
+    <ul>
+      <li v-for="(themeName, index) in themeNames" :key="index">
+      <router-link :to="{ name: 'theme-details', params: { nom: themeName } }">{{ themeName }}</router-link>
+    </li>
+    </ul>
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia';
-import { useCounterStore } from '@/stores/counter.js';
+import { themesStore } from '@/stores/themes.js';
+import { ref } from 'vue';
 
-const store = useCounterStore();
-const { name, doubleCount } = storeToRefs(store);
-const { increment, decrement } = store;
+const store = themesStore();
+const { getThemesNames } = store;
+
+const themeNames = ref([]);
+
+
+themeNames.value = getThemesNames();
+
 </script>
