@@ -3,20 +3,25 @@
     <label for="text-input">Nom du theme :</label>
     <input type="text" id="theme-text-input" v-model="inputThemeText">
     <button @click="addThemeHandler">Ajouter un theme</button>
-    <div v-if="themeAddedText !== ''">
+    <div v-if="themeAddedText !== '' && inputThemeText === ''">
         {{ themeAddedText }}
     </div>
-    <h2>Liste des themes:</h2>
-    <ul>
-        <li v-for="(themeName, index) in themeNames" :key="index">
-            {{ themeName }}
-        </li>
-    </ul>
+    <div v-if="themeNames.length > 0">
+        <h2>Liste des themes:</h2>
+        <ul>
+            <li v-for="(themeName, index) in themeNames" :key="index">
+                {{ themeName }}
+            </li>
+        </ul>
+    </div>
+    <div v-else>
+        <h1>Aucun thème</h1>
+    </div>
 </template>
   
 <script setup>
 import { themesStore } from '@/stores/themes.js';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const store = themesStore();
 const { addTheme, getThemesNames } = store;
@@ -34,6 +39,12 @@ function addThemeHandler() {
         themeNames.value = getThemesNames();
     }
 }
+
+watch(inputThemeText, () => {
+    if (inputThemeText.value !== '') {
+        themeAddedText.value = '';
+    }
+});
 
 themeNames.value = getThemesNames();
 
