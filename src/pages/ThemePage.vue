@@ -8,9 +8,6 @@
         <button>
             <router-link :to="{ name: 'add-card', params: { nom: nom } }">Ajouter une carte</router-link>
         </button>
-        <button>
-            <router-link :to="{ name: 'start-revision', params: { nom: nom } }">Commencer à réviser</router-link>
-        </button>
     </div>
     <div v-else>
         Ce thème n'existe pas

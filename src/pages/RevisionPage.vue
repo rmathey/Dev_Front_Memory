@@ -1,61 +1,103 @@
 <template>
-    <button>
-        <router-link :to="`/theme/${nom}`">Retour</router-link>
-    </button>
-    <div v-if="themeData !== undefined">
-        <h1>{{ nom }}</h1>
-
-        <div v-if="revisionStarted">
-            <label>Recto :</label>
-            <label>{{ recto }}</label>
-
-            <label for="text-input">Verso :</label>
-            <input type="text" id="theme-text-input" v-model="inputText">
+    <div>
+        <button>
+            <router-link :to="`/`">Retour</router-link>
+        </button>
+        <div v-if="themeNames.length > 0">
+            <h2>Révision:</h2>
+            <label v-for="(option, index) in options" :key="index">
+                <input type="checkbox" :value="option.value" v-model="selectedThemes">
+                {{ option.label }}
+                <select v-model="selectedLevels1[option.value]" :key="`${option.value}-select1`"
+                    @change="updateSelectedLevels1(option.value)">
+                    <option v-for="i in getAmountOfFilledTheme(option.value) + 1" :value="i - 1" :key="`${option.value}-option1-${i}`">{{ i - 1 }}</option>
+                </select>
+                <select v-model="selectedLevels2[option.value]" :key="`${option.value}-select2`"
+                    @change="updateSelectedLevels2(option.value)">
+                    <option v-for="i in getCardLevel(option.value, 0).length + 1" :value="i - 1" :key="`${option.value}-option2-${i}`">
+                        {{ i - 1 }}</option>
+                </select>
+            </label>
+            <button @click="startRevisionHandler()">Commencer la révision</button>
+            {{ message }}
         </div>
         <div v-else>
-            <button @click="startRevisionHandler(nom)">Commencer la révision</button>
+            <h1>Aucun thème</h1>
         </div>
-    </div>
-    <div v-else>
-        Ce thème n'existe pas
     </div>
 </template>
   
 <script setup>
+import { useRouter } from 'vue-router'
 import { themesStore } from '@/stores/themes.js';
 import { revisionStore } from '@/stores/revision.js';
-import { ref, defineProps, watch } from 'vue';
+import { ref } from 'vue';
 
 const store1 = themesStore();
 const store2 = revisionStore();
-const { getTheme, getCardLevel } = store1;
 const { startRevision } = store2;
+const { getThemesNames, getCardLevel, getAmountOfFilledTheme, getData } = store1;
+const router = useRouter();
 
-const props = defineProps({
-    nom: {
-        type: String,
-        required: true,
-    },
+const selectedThemes = ref([]);
+const themeNames = ref([]);
+const selectedLevels1 = ref({});
+const selectedLevels2 = ref({});
+const message = ref('');
+themeNames.value = getThemesNames();
+const options = themeNames.value.map((theme) => ({ label: theme, value: theme }));
+themeNames.value.forEach((theme) => {
+    selectedLevels1.value[theme] = 0;
+    selectedLevels2.value[theme] = 0;
 });
 
-const inputText = ref('');
-
-const revisionStarted = ref(false);
-
-const nom = ref(props.nom);
-const recto = ref('');
-const themeData = getTheme(nom.value);
-
-function startRevisionHandler() {
-    revisionStarted.value = true;
-    var cards = [];
-    for (let i = 7; i > 0; i--) {
-        cards.push(getCardLevel(nom.value, i));
-    }
-    recto.value = startRevision(nom.value, cards);
+function updateSelectedLevels1(themeName) {
+    const level = selectedLevels1.value[themeName];
+    selectedLevels1.value = { ...selectedLevels1.value, [themeName]: level };
+}
+function updateSelectedLevels2(themeName) {
+    const level = selectedLevels2.value[themeName];
+    selectedLevels2.value = { ...selectedLevels2.value, [themeName]: level };
 }
 
-watch(inputText, () => {
-    console.log(inputText.value);
-});
+
+function startRevisionHandler() {
+    var themesData = [];
+    var item;
+    var arg1;
+    var arg2;
+    var arg3;
+    for (let i = 0; i < selectedThemes.value.length; i++) {
+        arg1 = selectedThemes.value[i]
+        arg2 = selectedLevels1.value[selectedThemes.value[i]];
+        arg3 = selectedLevels2.value[selectedThemes.value[i]];
+        item = [arg1, arg2, arg3]
+        if (arg2 !== 0 || arg3 !== 0) {
+            themesData.push(item);
+        }
+    }
+    print(themesData);
+    startRevision(themesData, getData());
+    if (themesData.length === 0) {
+        message.value = "Aucun theme selectionné";
+    }
+    else {
+        message.value = "";
+        router.push({ path: '/revision/start'});
+    }
+}
+
+
+
+
+
+function print(array) {
+    console.log(array);
+    for (let i = 0; i < array.length; i++) {
+        console.log(array[i]);
+        for (let j = 0; j < array[i].length; j++)
+            console.log(array[i][j]);
+    }
+}
 </script>
+  

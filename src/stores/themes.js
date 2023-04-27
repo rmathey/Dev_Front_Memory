@@ -5,9 +5,12 @@ export const themesStore = defineStore("themes", {
     data: JSON.parse(localStorage.getItem("data")) || [],
   }),
   getters: {
-    getData: (state) => state.data,
+    //getData: (state) => state.data,
   },
   actions: {
+    getData() {
+      return this.data;
+    },
     getCard(theme, recto) {
       const cards = this.getThemeCards(theme);
       var resp = undefined;
@@ -32,6 +35,9 @@ export const themesStore = defineStore("themes", {
       }
       return resp;
     },
+    getCardsLen(themeName) {
+      return this.getTheme(themeName).cards.length;
+    },
     getTheme(themeName) {
       themeName = themeName.trim();
       var resp = undefined;
@@ -51,6 +57,25 @@ export const themesStore = defineStore("themes", {
     },
     getThemeCards(themeName) {
       return this.getTheme(themeName).cards;
+    },
+    getAmountOfFilledTheme(themeName) {
+      const cards = this.getThemeCards(themeName);
+      var count = 0;
+      var checkIfEmpty;
+      for (let i = 7; i > 0; i--) {
+        var count2 = 0;
+        checkIfEmpty = true;
+        for (let j = 0; j < cards.length; j++) {
+          if (cards[j].niveau === i) {
+            checkIfEmpty = false;
+          }
+        }
+        if (!checkIfEmpty) {
+          count2 += 1;
+        }
+        count += count2;
+      }
+      return count;
     },
     addTheme(themeName) {
       const theme = themeName.trim();
@@ -81,7 +106,7 @@ export const themesStore = defineStore("themes", {
         const card = {
           recto: recto,
           verso: verso,
-          niveau: 1,
+          niveau: 0,
           timeStamp: now.getTime(),
         };
         for (let i = 0; i < this.data.length; i++) {

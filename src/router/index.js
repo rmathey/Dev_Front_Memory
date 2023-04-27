@@ -17,10 +17,13 @@ const routes = [
     props: true
   },
   {
-    path: '/theme/:nom/revision',
-    name: 'start-revision',
-    component: () => import("../pages/RevisionPage.vue"),
-    props: true
+    path: '/revision',
+    component: () => import("../pages/RevisionPage.vue")
+  },
+  ,
+  {
+    path: '/revision/start',
+    component: () => import("../pages/RevisionStartedPage.vue")
   },
   {
     path: '/theme/:nom/addCard',

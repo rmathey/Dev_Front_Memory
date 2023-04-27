@@ -4,6 +4,7 @@
     </button>
     <div v-if="themeData !== undefined">
         <h1>{{ nom }}</h1>
+        <h2>Nouvelles cartes: {{ getCardLevel(nom, 0).length }}</h2>
         <h2>Cartes de niveau 1: {{ getCardLevel(nom, 1).length }}</h2>
         <h2>Cartes de niveau 2: {{ getCardLevel(nom, 2).length }}</h2>
         <h2>Cartes de niveau 3: {{ getCardLevel(nom, 3).length }}</h2>
@@ -16,7 +17,7 @@
         <input type="text" id="theme-text-input" v-model="recto">
         <label for="text-input">Verso de la carte :</label>
         <input type="text" id="theme-text-input" v-model="verso">
-        <button @click="addCardHandler">Ajouter un theme</button>
+        <button @click="addCardHandler">Ajouter une carte</button>
         <div v-if="cardAddedText !== '' && recto === '' && verso === ''">
             {{ cardAddedText }}
         </div>
