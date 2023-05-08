@@ -1,25 +1,29 @@
 <template>
     <div>
-        <button>
-            <router-link :to="`/`">Retour</router-link>
-        </button>
-        <div v-if="themeNames.length > 0">
-            <h2>Révision:</h2>
-            <label v-for="(option, index) in options" :key="index">
+        <div v-if="themeNames.length > 0" class="container">
+            <h2 class="row">Révision:</h2>
+            <div class="row marge-haut">
+                Nom | Nombre de niveau | Nombre de nouvelles cartes
+            </div>
+            <label v-for="(option, index) in options" :key="index" class="row marge-haut">
                 <input type="checkbox" :value="option.value" v-model="selectedThemes">
-                {{ option.label }}
+                <div class="label-revision">{{ option.label }}</div>
                 <select v-model="selectedLevels1[option.value]" :key="`${option.value}-select1`"
                     @change="updateSelectedLevels1(option.value)">
-                    <option v-for="i in getAmountOfFilledTheme(option.value) + 1" :value="i - 1" :key="`${option.value}-option1-${i}`">{{ i - 1 }}</option>
+                    <option v-for="i in getAmountOfFilledTheme(option.value) + 1" :value="i - 1"
+                        :key="`${option.value}-option1-${i}`">{{ i - 1 }}</option>
                 </select>
                 <select v-model="selectedLevels2[option.value]" :key="`${option.value}-select2`"
                     @change="updateSelectedLevels2(option.value)">
-                    <option v-for="i in getCardLevel(option.value, 0).length + 1" :value="i - 1" :key="`${option.value}-option2-${i}`">
+                    <option v-for="i in getCardLevel(option.value, 0).length + 1" :value="i - 1"
+                        :key="`${option.value}-option2-${i}`">
                         {{ i - 1 }}</option>
                 </select>
             </label>
-            <button @click="startRevisionHandler()">Commencer la révision</button>
-            {{ message }}
+            <button @click="startRevisionHandler()" class="btn btn-primary row marge-haut">Commencer la révision</button>
+            <div v-if="message !== ''" class="alert alert-primary mt-3 row">
+                {{ message }}
+            </div>
         </div>
         <div v-else>
             <h1>Aucun thème</h1>
@@ -82,8 +86,7 @@ function startRevisionHandler() {
     else {
         message.value = "";
         startRevision(themesData, getData());
-        router.push({ path: '/revision/start'});
+        router.push({ path: '/revision/start' });
     }
 }
 </script>
-  

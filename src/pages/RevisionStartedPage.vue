@@ -1,21 +1,31 @@
 <template>
-    <button>
-        <router-link :to="`/revision`">Retour</router-link>
+    <button class="btn btn-secondary">
+        <router-link :to="`/revision`" class="text-retour">Retour</router-link>
     </button>
     <div v-if="ended">
-        <label>{{ infoText }}</label>
-        <label>Révision terminée</label>
+        <div v-if="infoText !== ''" class="alert alert-primary mt-3">
+            <label>{{ infoText }}</label>
+        </div>
+        <div v-if="infoText !== ''" class="alert alert-success mt-3">
+            <label>Révision terminée</label>
+        </div>
     </div>
-    <div v-else-if="currentCard.length !== 0">
-        <label>{{ currentCard.recto }}</label>
-        <input type="text" id="theme-text-input" v-model="inputText">
-        <button @click="submitCardHandler()">Répondre</button>
-        <label>{{ infoText }}</label>
+    <div v-else-if="currentCard.length !== 0" class="container">
+        <h2 class="row marge-haut">Recto: {{ currentCard.recto }}</h2>
+        <div class="row marge-haut">
+            <h2>Verso: </h2>
+            <input type="text" id="theme-text-input" v-model="inputText">
+        </div>
+        <button @click="submitCardHandler()" class="btn btn-primary row marge-haut">Répondre</button>
+        <div v-if="infoText !== ''" class="alert alert-primary mt-3 row marge-haut">
+            <label>{{ infoText }}</label>
+        </div>
     </div>
     <div v-else>
         Aucune révision en cours
     </div>
 </template>
+  
   
 <script setup>
 import { revisionStore } from '@/stores/revision.js';
@@ -52,4 +62,3 @@ function submitCardHandler() {
 }
 
 </script>
-  

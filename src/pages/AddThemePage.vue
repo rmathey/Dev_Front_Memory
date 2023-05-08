@@ -1,21 +1,28 @@
 <template>
-    <h1>Ajouter un theme</h1>
-    <label for="text-input">Nom du theme :</label>
-    <input type="text" id="theme-text-input" v-model="inputThemeText">
-    <button @click="addThemeHandler">Ajouter un theme</button>
-    <div v-if="themeAddedText !== '' && inputThemeText === ''">
-        {{ themeAddedText }}
-    </div>
-    <div v-if="themeNames.length > 0">
-        <h2>Liste des themes:</h2>
-        <ul>
-            <li v-for="(themeName, index) in themeNames" :key="index">
-                {{ themeName }}
-            </li>
-        </ul>
-    </div>
-    <div v-else>
-        <h1>Aucun thème</h1>
+    <div>
+        <h1>Ajouter un thème</h1>
+
+        <div class="form-group">
+            <label for="theme-text-input">Nom du thème :</label>
+            <input type="text" id="theme-text-input" v-model="inputThemeText" class="form-control">
+        </div>
+
+        <button @click="addThemeHandler" class="btn btn-primary">Ajouter un thème</button>
+
+        <div v-if="themeAddedText !== '' && inputThemeText === ''" class="alert alert-primary mt-3">
+            {{ themeAddedText }}
+        </div>
+
+        <div v-if="themeNames.length > 0">
+            <h2>Liste des thèmes :</h2>
+            <ul>
+                <li v-for="(themeName, index) in themeNames" :key="index">{{ themeName }}</li>
+            </ul>
+        </div>
+
+        <div v-else>
+            <h2>Aucun thème</h2>
+        </div>
     </div>
 </template>
   

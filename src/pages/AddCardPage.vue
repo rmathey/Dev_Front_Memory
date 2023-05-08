@@ -1,20 +1,26 @@
 <template>
-    <button>
-        <router-link :to="`/theme/${nom}`">Retour</router-link>
-    </button>
-    <div v-if="themeData !== undefined">
-        <h1>{{ nom }}</h1>
-        <label for="text-input">Recto de la carte :</label>
-        <input type="text" id="theme-text-input" v-model="recto">
-        <label for="text-input">Verso de la carte :</label>
-        <input type="text" id="theme-text-input" v-model="verso">
-        <button @click="addCardHandler">Ajouter une carte</button>
-        <div v-if="cardAddedText !== '' && recto === '' && verso === ''">
-            {{ cardAddedText }}
+    <div>
+        <button class="btn btn-secondary">
+            <router-link :to="`/theme/${nom}`" class="text-retour">Retour</router-link>
+        </button>
+        <div v-if="themeData !== undefined">
+            <h1>Theme: {{ nom }}</h1>
+            <div class="form-group">
+                <label for="recto">Recto de la carte :</label>
+                <input type="text" id="recto" class="form-control" v-model="recto">
+            </div>
+            <div class="form-group">
+                <label for="verso">Verso de la carte :</label>
+                <input type="text" id="verso" class="form-control" v-model="verso">
+            </div>
+            <button class="btn btn-primary" @click="addCardHandler">Ajouter une carte</button>
+            <div v-if="cardAddedText !== '' && recto === '' && verso === ''" class="alert alert-primary mt-3" role="alert">
+                {{ cardAddedText }}
+            </div>
         </div>
-    </div>
-    <div v-else>
-        Ce thème n'existe pas
+        <div v-else class="alert alert-danger" role="alert">
+            Ce thème n'existe pas
+        </div>
     </div>
 </template>
   
@@ -56,6 +62,4 @@ watch(verso, () => {
         cardAddedText.value = '';
     }
 });
-
-
 </script>

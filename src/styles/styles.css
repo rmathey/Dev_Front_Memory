@@ -1,50 +1,41 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-  margin: 0;
-  padding: 0;
+/* Couleurs pour les liens de la navbar */
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255,255,255,0.9);
 }
 
-h1 {
-  font-size: 2rem;
-  text-align: center;
-  color: #333;
-  margin-top: 1rem;
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+  color: rgba(255,255,255,1);
 }
 
-h2 {
-  font-size: 1.5rem;
-  text-align: center;
-  color: #666;
-  margin-top: 2rem;
+/* Style pour le bouton de menu déroulant */
+.navbar-dark .navbar-toggler {
+  border-color: rgba(255,255,255,0.1);
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255,255,255,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-li {
-  margin: 1rem;
+.text-retour {
+  color: rgba(255,255,255,0.9);
 }
 
-a {
-  display: block;
-  padding: 0.5rem;
-  border-radius: 5px;
-  text-align: center;
-  background-color: #fff;
-  color: #333;
-  text-decoration: none;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+.text-noir {
+  color: black;
+}
+.text-noir:hover {
+  color: gray;
 }
 
-a:hover {
-  background-color: #333;
-  color: #fff;
+select {
+  margin-left: 20px;
+}
+
+.label-revision {
+  margin-left: 20px;
+}
+
+.marge-haut {
+  margin-top: 20px;
 }
