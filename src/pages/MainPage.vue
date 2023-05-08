@@ -1,6 +1,12 @@
 <template>
   <div class="container my-5">
     <h1 class="mb-4">Memory</h1>
+    <div v-if="notificationActivated">
+      Notifications activées
+    </div>
+    <div v-else>
+      <button @click="notificationHandler" class="btn btn-primary">Activer les notifications</button>
+    </div>
     <div v-if="themeNames.length > 0">
       <h2 class="mb-3">Liste des thèmes:</h2>
       <ul class="list-group">
@@ -27,6 +33,7 @@ import { ref } from 'vue';
 const store = themesStore();
 const { getThemesNames, deleteTheme } = store;
 const themeNames = ref([]);
+const notificationActivated = ref(Notification.permission === "granted");
 
 
 themeNames.value = getThemesNames();
@@ -35,5 +42,23 @@ function deleteThemeHandler(event) {
   const name = event.target.dataset.id;
   deleteTheme(name)
   window.location.reload();
+}
+
+function notificationHandler() {
+  console.log("notificationHandler()");
+  if ("Notification" in window) {
+  if (Notification.permission === "granted") {
+    // l'utilisateur a déjà autorisé les notifications
+  } else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function(permission) {
+      if (permission === "granted") {
+        console.log("Notifications activées");
+        window.location.reload();
+      } else {
+        console.log("Notifications desactivées");
+      }
+    });
+  }
+}
 }
 </script>

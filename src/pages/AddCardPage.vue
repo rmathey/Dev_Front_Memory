@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <button class="btn btn-secondary">
+    <div class="container">
+        <button class="btn btn-secondary marge-haut">
             <router-link :to="`/theme/${nom}`" class="text-retour">Retour</router-link>
         </button>
         <div v-if="themeData !== undefined">
-            <h1>Theme: {{ nom }}</h1>
+            <h1>Thème: {{ nom }}</h1>
             <div class="form-group">
                 <label for="recto">Recto de la carte :</label>
                 <input type="text" id="recto" class="form-control" v-model="recto">

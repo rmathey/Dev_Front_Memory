@@ -3,7 +3,7 @@
         <div v-if="themeNames.length > 0" class="container">
             <h2 class="row">Révision:</h2>
             <div class="row marge-haut">
-                Nom | Nombre de niveau | Nombre de nouvelles cartes
+                Nom | Nombre de niveaux | Nombre de nouvelles cartes
             </div>
             <label v-for="(option, index) in options" :key="index" class="row marge-haut">
                 <input type="checkbox" :value="option.value" v-model="selectedThemes">
@@ -81,7 +81,7 @@ function startRevisionHandler() {
         }
     }
     if (themesData.length === 0) {
-        message.value = "Aucun theme selectionné";
+        message.value = "Aucun thème sélectionné";
     }
     else {
         message.value = "";
