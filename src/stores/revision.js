@@ -3,54 +3,63 @@ import { defineStore } from "pinia";
 export const revisionStore = defineStore("revision", {
   state: () => ({
     cards: [],
-    results: {},
-    index: 0
+    results: [],
+    index: -1,
   }),
   getters: {
     //getThemes: (state) => state.themes,
   },
   actions: {
-    getThemes() {
-      return this.themes;
-    },
     startRevision(themesData, themes) {
-      this.index = 0;
+      this.index = -1;
       this.cards = [];
-      this.resutls = {};
-      for (let i = 0; i < 7; i++) {
-        this.resutls[i + 1] = [];
-      }
-      console.log("this.resutls1");
-      console.log(this.resutls);
-      for (let i = 0; i < themes.length; i++) {
-        console.log("themes[i]");
-        console.log(themes[i]);
-        for (let j = 0; j < themes[i].cards.length; j++) {
-            if (themes[i].cards[j].niveau !== 0 && themes[i].cards[j].niveau !== 8) {
-              this.resutls[themes[i].cards[j].niveau].push(themes[i].cards[j]);
+      var cards = []
+      this.resutls = [];
+
+      for (let i = 0; i < themesData.length; i++) {
+        const theme = themes.filter(node => node.nom === themesData[i][0])[0];
+
+        
+        var index = 0;
+        var index3 = 0;
+        while (index < themesData[i][1]) {
+          var cardsLevel = theme.cards.filter(node => node.niveau === 7 - index3 );
+          index3 += 1;
+          if (cardsLevel.length > 0) {
+            index += 1;
+            for (let index2 = 0; index2 < cardsLevel.length; index2++) {
+              cardsLevel[index2]["theme"] = theme.nom;
+              cards.push(cardsLevel[index2]);
             }
           }
-    }
-    console.log("this.resutls2");
-    console.log(this.resutls);
-    console.log("themesData");
-    console.log(themesData);
-    console.log("themes");
-    console.log(themes);
+        }
+        
+        const newCards = theme.cards.filter(node => node.niveau === 0 );
+        for (let k = 0; k < themesData[i][2]; k++) {
+          newCards[k]["theme"] = theme.nom;
+          cards.push(newCards[k]);
+          }
+      }
+      this.cards = cards;
     },
-    getNextCard() {
+    getNextCard(carte, reponse) {
+      if (this.index >= 0) {
+        this.results.push([carte, reponse]);
+      }
+      this.index += 1;
       if (this.cards.length === 0) {
         return [];
-      }
-      else if (this.index >= this.cards.length) {
-        return this.results;
-      }
-      else{
+      } else {
         return this.cards[this.index];
       }
+    },
+    isEnded() {
+      return this.index >= this.cards.length;
+    },
+    getResults() {
+      return this.results;
     }
   },
 });
-
 
 export default revisionStore;

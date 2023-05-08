@@ -35,9 +35,9 @@ function addThemeHandler() {
     const resp = addTheme(inputThemeText.value).split("|");
     themeAddedText.value = resp[1];
     if (resp[0] === "true") {
-        inputThemeText.value = "";
         themeNames.value = getThemesNames();
     }
+    inputThemeText.value = "";
 }
 
 watch(inputThemeText, () => {

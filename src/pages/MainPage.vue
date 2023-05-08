@@ -5,6 +5,7 @@
     <ul>
       <li v-for="(themeName, index) in themeNames" :key="index">
         <router-link :to="{ name: 'theme-details', params: { nom: themeName } }">{{ themeName }}</router-link>
+        <button :key="themeName" :data-id="themeName" @click="deleteThemeHandler">Supprimer</button>
       </li>
     </ul>
   </div>
@@ -18,11 +19,15 @@ import { themesStore } from '@/stores/themes.js';
 import { ref } from 'vue';
 
 const store = themesStore();
-const { getThemesNames } = store;
-
+const { getThemesNames, deleteTheme } = store;
 const themeNames = ref([]);
 
 
 themeNames.value = getThemesNames();
 
+function deleteThemeHandler(event) {
+  const name = event.target.dataset.id;
+    deleteTheme(name)
+    window.location.reload();
+}
 </script>

@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+const CryptoJS = require("crypto-js");
 
 export const themesStore = defineStore("themes", {
   state: () => ({
@@ -82,9 +83,10 @@ export const themesStore = defineStore("themes", {
       var resp;
       if (theme !== "") {
         const exists = this.getTheme(theme) !== undefined;
-
         if (!exists) {
-          var themeObj = { id: this.data.length, nom: theme, cards: [] };
+          const themeHashed = CryptoJS.SHA256(theme);
+          const id = CryptoJS.enc.Hex.stringify(themeHashed);
+          var themeObj = { id: id, nom: theme, cards: [] };
           this.data.push(themeObj);
           localStorage.setItem("data", JSON.stringify(this.data));
           resp = "true|Le thème " + theme + " a bien été ajouté";
@@ -94,6 +96,13 @@ export const themesStore = defineStore("themes", {
       } else {
         resp = "false|Nom du thème ne peut pas être vide";
       }
+      return resp;
+    },
+    deleteTheme(themeName) {
+      const theme = themeName.trim();
+      var resp;
+      this.data = this.data.filter((node) => node.nom !== theme);
+      localStorage.setItem("data", JSON.stringify(this.data));
       return resp;
     },
     addCard(theme, recto, verso) {
@@ -119,7 +128,29 @@ export const themesStore = defineStore("themes", {
       } else {
         return "false|La carte existe déjà";
       }
-    }
+    },
+    update(results) {
+      for (let i = 0; i < results.length; i++) {
+        for (let j = 0; j < this.data.length; j++) {
+          if (this.data[j].nom === results[i][0].theme) {
+            for (let k = 0; k < this.data[j].cards.length; k++) {
+              if (this.data[j].cards[k].recto === results[i][0].recto) {
+                console.log(this.data[j].cards[k].recto);
+                if (results[i][1]) {
+                  this.data[j].cards[k].niveau += 1;
+                }
+                else {
+                  if (this.data[j].cards[k].niveau !== 0) {
+                    this.data[j].cards[k].niveau = 1;
+                  }
+                }
+              }
+            }
+          }
+        }
+        localStorage.setItem("data", JSON.stringify(this.data));
+      }
+    },
   },
 });
 

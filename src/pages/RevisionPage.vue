@@ -76,27 +76,13 @@ function startRevisionHandler() {
             themesData.push(item);
         }
     }
-    print(themesData);
-    startRevision(themesData, getData());
     if (themesData.length === 0) {
         message.value = "Aucun theme selectionné";
     }
     else {
         message.value = "";
+        startRevision(themesData, getData());
         router.push({ path: '/revision/start'});
-    }
-}
-
-
-
-
-
-function print(array) {
-    console.log(array);
-    for (let i = 0; i < array.length; i++) {
-        console.log(array[i]);
-        for (let j = 0; j < array[i].length; j++)
-            console.log(array[i][j]);
     }
 }
 </script>
