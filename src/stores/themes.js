@@ -14,7 +14,7 @@ export const themesStore = defineStore("themes", {
     },
     getCard(theme, recto) {
       const cards = this.getThemeCards(theme);
-      var resp = {};
+      var resp = undefined;
       var index = 0;
       while (cards[index] !== undefined) {
         if (cards[index].recto === recto) {
