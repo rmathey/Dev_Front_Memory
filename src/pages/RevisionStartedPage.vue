@@ -47,18 +47,23 @@ currentCard.value = getNextCard();
 
 function submitCardHandler() {
     var resp;
-    if (inputText.value.trim() === currentCard.value.verso) {
-        infoText.value = "Bonne réponse !";
-        resp = true;
+    if (inputText.value.trim() === "") {
+        infoText.value = "Veuillez entrer une réponse";
     }
     else {
-        infoText.value = "Mauvaise réponse !";
-        resp = false;
-    }
-    currentCard.value = getNextCard(currentCard.value, resp);
-    if (isEnded()) {
-        ended.value = true;
-        update(getResults());
+        if (inputText.value.trim() === currentCard.value.verso) {
+            infoText.value = "Bonne réponse !";
+            resp = true;
+        }
+        else {
+            infoText.value = "Mauvaise réponse !";
+            resp = false;
+        }
+        currentCard.value = getNextCard(currentCard.value, resp);
+        if (isEnded()) {
+            ended.value = true;
+            update(getResults());
+        }
     }
     inputText.value = "";
 }
