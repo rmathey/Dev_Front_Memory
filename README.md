@@ -7,11 +7,32 @@ Voici les commandes à effectuer:
 ```bash
 npm install
 ```
+
+Pour lancer l'application en développement
 ```bash
 npm run serve
 ```
 
 Ensuite, avec son navigateur préféré, se rendre sur [localhost:8080](http://localhost:8080/)
+
+Pour déployer l'application en production sur Firebase
+```bash
+npm run build
+```
+```bash
+npm install -g firebase-tools
+```
+```bash
+firebase login 
+```
+```bash
+firebase init
+```
+```bash
+firebase deploy
+```
+
+Ensuite, avec son navigateur préféré, se rendre sur [Firebase](https://rmathey-memory.web.app/)
 
 ## Fonctionnalités implémentées:
 
@@ -33,3 +54,9 @@ puis remplir le formulaire.
 ![hors_connexion](img/hors_connexion.jpg)
 
 ## Organisation de votre code et des composants
+
+- Utilisation d'un router pour pouvoir naviguer entre les pages.
+- L'utilisation de 2 stores Penia: un pour le stockage de l'état des thèmes et des cartes et un autre pour stocker les cartes et les réponses lors de la révision des cartes.
+- L'utilisation de Bootstrap pour rendre le site responsive.
+- Afin de pouvoir stocker les thèmes et les cartes lorsque l'utilisateur ferme le navigateur, le local storage est utilisé.
+- Toutes les données sont stockées au format JSON.

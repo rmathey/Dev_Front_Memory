@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container marge-haut">
         <h1>Ajouter un thème</h1>
 
         <div class="form-group">

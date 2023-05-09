@@ -8,7 +8,7 @@
       <button @click="notificationHandler" class="btn btn-primary">Activer les notifications</button>
     </div>
     <div v-if="themeNames.length > 0">
-      <h2 class="mb-3">Liste des thèmes:</h2>
+      <h2 class="mb-3 marge-haut">Liste des thèmes:</h2>
       <ul class="list-group">
         <li v-for="(themeName, index) in themeNames" :key="index"
           class="list-group-item d-flex justify-content-between align-items-center">

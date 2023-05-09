@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-if="themeNames.length > 0" class="container">
+    <div class="container marge-haut">
+        <div v-if="themeNames.length > 0">
             <h2 class="row">Révision:</h2>
             <div class="row marge-haut">
                 Nom | Nombre de niveaux | Nombre de nouvelles cartes
