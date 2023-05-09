@@ -23,7 +23,7 @@ npm run build
 npm install -g firebase-tools
 ```
 ```bash
-firebase login 
+firebase login
 ```
 ```bash
 firebase init
@@ -42,6 +42,7 @@ Pour la suppression, il faut se rendre sur l'accueil et cliquer sur le bouton "S
 - Ajout de cartes de révisions pour chaque thème, chaque carte est composée d'un recto et d'un verso composés de texte. Pour ajouter une ou plusieurs cartes, il faut se rendre sur l'accueil et cliquer sur le bouton "Modifier" (voir ci-dessus), puis sur le bouton "Ajouter une carte",                                                
 ![theme_page](img/theme_page.jpg)
 puis remplir le formulaire.
+- Modification du nom du thème en remplissant le nouveau nom puis en cliquant sur "Modifier le nom du thème" (voir ci-dessus).
 ![add_card](img/add_card.jpg)
 - Réviser les cartes en sélectionnant un ou plusieurs thèmes et pour chaque thème choisir le nombre de niveaux et le nombre de nouvelles cartes. Il y a une vérification au niveau de la sélection: l'utilisateur ne peut pas sélectionner plus de cartes et plus de niveaux qui n'ont pas au moins une carte. Durant la révision, l'utilisateur doit se souvenir du verso de la carte, une fois toutes les cartes parcourues, les résultats sont enregistrés. Si la réponse de la carte est bonne, son niveau augmente d'un, sinon son niveau tombe à 1.
 ![choix_revision](img/choix_revision.jpg)

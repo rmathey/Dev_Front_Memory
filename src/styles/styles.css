@@ -39,3 +39,7 @@ select {
 .marge-haut {
   margin-top: 20px;
 }
+
+.marge-gauche {
+  margin-left: 5px;
+}

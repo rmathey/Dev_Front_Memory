@@ -14,7 +14,7 @@ export const themesStore = defineStore("themes", {
     },
     getCard(theme, recto) {
       const cards = this.getThemeCards(theme);
-      var resp = undefined;
+      var resp = {};
       var index = 0;
       while (cards[index] !== undefined) {
         if (cards[index].recto === recto) {
@@ -151,6 +151,21 @@ export const themesStore = defineStore("themes", {
         localStorage.setItem("data", JSON.stringify(this.data));
       }
     },
+    modifyName(nom, newNom_) {
+      const newNom = newNom_.trim();
+      if (this.getTheme(newNom_) === undefined) {
+        for (let i = 0; i < this.data.length; i++) {
+          if (this.data[i].nom === nom) {
+            this.data[i].nom = newNom;
+          }
+        }
+        localStorage.setItem("data", JSON.stringify(this.data));
+        return newNom;
+      }
+      else {
+        return "";
+      }
+    }
   },
 });
 
